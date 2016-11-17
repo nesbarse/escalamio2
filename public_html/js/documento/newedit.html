@@ -43,7 +43,11 @@ THE SOFTWARE.
                             
                             
                             <div id="titulo-group" class="form-group" 
-                                 ng-class="{'has-error': (outerForm.titulo.$error.required || outerForm.titulo.$error.minlength) && !outerForm.titulo.$pristine}">
+                                 ng-class="{'has-error': (
+                                             outerForm.titulo.$error.required || 
+                                             outerForm.titulo.$error.minlength ||
+                                             outerForm.titulo.$error.maxlength) 
+                                             && !outerForm.titulo.$pristine}">
                                 <label class="col-sm-2 control-label" for="titulo">Título:</label>
                                 <div class="control col-sm-8">
                                     <input ng-model="obj.titulo"
@@ -59,9 +63,7 @@ THE SOFTWARE.
                                     <span class="help-block" ng-show="!outerForm.titulo.$pristine && outerForm.titulo.$error.required">El campo titulo es obligatorio</span>
                                     <span class="help-block" ng-show="!outerForm.titulo.$pristine && outerForm.titulo.$error.minlength">El campo titulo debe tener al menos 10 caracteres</span>
                                     <span class="help-block" ng-show="!outerForm.titulo.$pristine && outerForm.titulo.$error.maxlength">El campo titulo debe tener como máximo 200 caracteres</span>
-
                                 </div>
-
                             </div>
 
 

@@ -43,12 +43,33 @@ THE SOFTWARE.
                             </div>
 
 
-                            <div id="nombre-group" class="form-group">
-                                <label class="col-sm-2 control-label" for="login">Nombre:</label>
+                            
+                            <div id="titulo-group" class="form-group" 
+                                 ng-class="{'has-error': (outerForm.nombre.$error.required || 
+                                             outerForm.nombre.$error.minlength  ||
+                                             outerForm.titulo.$error.maxlength) 
+                                             && !outerForm.nombre.$pristine}">
+                                <label class="col-sm-2 control-label" for="nombre">Nombre:</label>
                                 <div class="control col-sm-8">
-                                    <input ng-model="obj.nombre" type="text" id="nombre" class="form-control" name="nombre" size="15" placeholder="nombre">
+                                    <input ng-model="obj.nombre"
+                                           type="text"
+                                           id="nombre"
+                                           class="form-control"
+                                           name="nombre"
+                                           size="15"
+                                           placeholder="nombre del usuario"
+                                           minlength="1"
+                                           maxlength="255"
+                                           required>
+                                    <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.required">El campo nombre es obligatorio</span>
+                                    <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.minlength">El campo nombre debe tener al menos 10 caracteres</span>
+                                    <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.maxlength">El campo nombre debe tener como máximo 255 caracteres</span>
                                 </div>
                             </div>
+                            
+                            
+                            
+                            
 
                             <div id="apellidos-group" class="form-group">
                                 <label class="col-sm-2 control-label" for="login">Apellidos:</label>
