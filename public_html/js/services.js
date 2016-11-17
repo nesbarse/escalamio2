@@ -51,6 +51,7 @@ angular.module('Services', [])
             return {
                   ////////////////////////////////////////////////////////////////
                 getLoginPromise: function (username, password) {
+                    //password = forge_sha256(password).toUpperCase();
                     return $http.get(this.getAppUrl() + '?ob=usuario&op=login&user=' + username + '&pass=' + password, 'GET', '');
                 },
                 getLogoutPromise: function () {
