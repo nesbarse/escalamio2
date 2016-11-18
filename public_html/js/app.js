@@ -94,22 +94,12 @@ escalamio.config(['$routeProvider', function ($routeProvider) {
 
 escalamio.run(function ($rootScope, $location, serverService, sessionService) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
-        //$rootScope.authenticated = false;
-        sessionService.setSessionInactive();
+     sessionService.setSessionInactive();
         sessionService.setUsername('');
-        serverService.patch('op=getsessionstatus').then(function (result) {
-            //console.log("--> $routeChangeStart:result= " + result);
-            if (result) {
-                //$rootScope.authenticated = true;
+        serverService.getSessionPromise().then(function (response) {
+            if (response['status'] == 200) {
                 sessionService.setSessionActive();
-                sessionService.setUsername('rafa');
-                //console.log('---> app.run: ')
-                //console.log('session: ' + sessionService.isSessionActive())
-                //console.log('username: ' + sessionService.getUsername())
-                //$location.path("/home");
-                //$rootScope.uid = results.uid;
-                //$rootScope.name = results.name;
-                //$rootScope.email = results.email;
+                sessionService.setUsername(response.data.message);
             } else {
                 sessionService.setSessionInactive();
                 sessionService.setUsername('');
@@ -119,7 +109,16 @@ escalamio.run(function ($rootScope, $location, serverService, sessionService) {
                 } else {
                     $location.path("/login");
                 }
-            }
+            }            
+        }).catch(function (data) {
+            sessionService.setSessionInactive();
+            sessionService.setUsername('');
+             var nextUrl = next.$$route.originalPath;
+             if (nextUrl == '/home' || nextUrl == '/login' || nextUrl == '/license') {
+
+             } else {
+                 $location.path("/login");
+             }
         });
     });
 });
