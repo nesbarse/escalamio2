@@ -42,6 +42,7 @@ var escalamio = angular.module('myApp', [
     'tipodocumentoControllers',
     'tipousuarioControllers',
     'estadoControllers',
+    'productoControllers',
     'ui.bootstrap',
     'ngSanitize'
 ]);
@@ -69,6 +70,13 @@ escalamio.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/documento/edit/:id', {templateUrl: 'js/documento/newedit.html', controller: 'DocumentoEditController'});
         $routeProvider.when('/documento/remove/:id', {templateUrl: 'js/documento/remove.html', controller: 'DocumentoRemoveController'});
         $routeProvider.when('/documento/plist/:page?/:rpp?', {templateUrl: 'js/documento/plist.html', controller: 'DocumentoPListController'});
+        //------------
+        $routeProvider.when('/producto/view/:id', {templateUrl: 'js/producto/view.html', controller: 'ProductoViewController'});
+        $routeProvider.when('/producto/new', {templateUrl: 'js/producto/newedit.html', controller: 'ProductoNewController'});
+        $routeProvider.when('/producto/edit/:id', {templateUrl: 'js/producto/newedit.html', controller: 'ProductoEditController'});
+        $routeProvider.when('/producto/remove/:id', {templateUrl: 'js/producto/remove.html', controller: 'ProductoRemoveController'});
+        $routeProvider.when('/producto/plist/:page?/:rpp?', {templateUrl: 'js/producto/plist.html', controller: 'ProductoPListController'});
+        
         //------------
         $routeProvider.when('/usuario/view/:id', {templateUrl: 'js/usuario/view.html', controller: 'UsuarioViewController'});
         $routeProvider.when('/usuario/new/:id?', {templateUrl: 'js/usuario/newedit.html', controller: 'UsuarioNewController'});
@@ -129,5 +137,6 @@ var moduloDocumento = angular.module('documentoControllers', []);
 var moduloTipodocumento = angular.module('tipodocumentoControllers', []);
 var moduloTipousuario = angular.module('tipousuarioControllers', []);
 var moduloEstado = angular.module('estadoControllers', []);
+var moduloProducto = angular.module('productoControllers', []);
 
 var moduloDirectivas = angular.module('Directives', []);

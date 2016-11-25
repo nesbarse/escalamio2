@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div id="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="font-family:Oswald , serif;"  ng-include="'js/system/header.html'"></div>
+                    <div class="panel-body" ng-cloak>
+                        <form name="outerForm" class="form-horizontal" ng-show="result == null">
+
+                            <div id="id-group" class="form-group">
+                                <label class="col-sm-2 control-label" for="id">Identificador:</label>
+                                <div class="control col-sm-3">
+                                    <input ng-model="obj.id" type="text" id="id" class="form-control" name="id" size="15" placeholder="id" disabled="disabled">
+                                </div>
+                            </div>
+
+
+                            
+                            <div id="titulo-group" class="form-group" 
+                                 ng-class="{'has-error': (outerForm.nombre.$error.required || 
+                                             outerForm.nombre.$error.minlength  ||
+                                             outerForm.titulo.$error.maxlength) 
+                                             && !outerForm.nombre.$pristine}">
+                                <label class="col-sm-2 control-label" for="nombre">Nombre:</label>
+                                <div class="control col-sm-8">
+                                    <input ng-model="obj.nombre"
+                                           type="text"
+                                           id="nombre"
+                                           class="form-control"
+                                           name="nombre"
+                                           size="15"
+                                           placeholder="nombre del producto"
+                                           minlength="1"
+                                           maxlength="255"
+                                           required>
+                                    <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.required">El campo nombre es obligatorio</span>
+                                    <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.minlength">El campo nombre debe tener al menos 10 caracteres</span>
+                                    <span class="help-block" ng-show="!outerForm.nombre.$pristine && outerForm.nombre.$error.maxlength">El campo nombre debe tener como máximo 255 caracteres</span>
+                                </div>
+                            </div>
+                            
+                            <div id="cantidad-group" class="form-group">
+                                <label class="col-sm-2 control-label" for="id">Cantidad:</label>
+                                <div class="control col-sm-3">
+                                    <input ng-model="obj.cantidad" type="text" id="cantidad" class="form-control" name="cantidad" size="15" placeholder="cantidad">
+                                </div>
+                            </div>
+
+
+                            <div class="control-group text-right">
+                                <div class="controls">
+                                    <a class="btn btn-primary" ng-click="save()">Guardar</a>
+                                    <a class="btn btn-default" ng-click="plist()">Ir al listado de producto</a>
+                                    <a class="btn btn-default" ng-click="close()">Cerrar</a>
+                                </div>
+                            </div>
+                        </form>
+                        <div ng-show="result != null">    
+                            <div class="alert alert-success" ng-show="result.status == 200">
+                                <h2>Se ha modificado el producto</h2>
+                                <a ng-href="#/producto/view/{{id}}">Ver el producto modificado</a>
+                            </div>
+                            <div class="alert alert-danger" ng-show="result.status != 200">
+                                <h2>Error al modificar el producto: no se ha modificado el usuario</h2>
+                                <h3>Código: {{result.status}}</h3>
+                                <h3>Mensaje: {{result.message}}</h3>             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="font-family: Questrial, serif;" ng-include="'js/system/footer.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>     
+</div>
