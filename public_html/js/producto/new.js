@@ -34,11 +34,21 @@ moduloProducto.controller('ProductoNewController', ['$scope', '$routeParams', '$
         $scope.ob = 'producto';
         $scope.op = 'new';
         $scope.result = null;
+        $scope.id = $routeParams.id;
         
         $scope.title = "Edición de producto";
         $scope.icon = "fa-file-text-o";
         
-        $scope.obj = {};
+        if (sharedSpaceService.getFase() == 0) {
+            $scope.obj = {
+                id: 0,
+                nombre: "",
+                cantidad: 0
+            };
+        }
+//        $scope.obj = {};
+//        $scope.obj.nombre = {nombre: ""};
+//        $scope.obj.cantidad = {cantidad: 0};
 //        $scope.obj.obj_tipousuario = {"id": 0};
 //        $scope.obj.obj_estado = {"id": 0};
         
@@ -61,10 +71,19 @@ moduloProducto.controller('ProductoNewController', ['$scope', '$routeParams', '$
 //            $location.path('/' + foreignObjectName + '/selection/1/10');
 //        }
         
-        $scope.save = function () {    
-            var jsonToSend = {json: JSON.stringify(serverService.array_identificarArray($scope.obj))};
-            serverService.promise_setOne($scope.ob, jsonToSend).then(function (data) {
-                $scope.result = data.data;
+//        $scope.save = function () {    
+//            var jsonToSend = {json: JSON.stringify(serverService.array_identificarArray($scope.obj))};
+//            serverService.promise_setOne($scope.ob, jsonToSend).then(function (data) {
+//                $scope.result = data.data;
+//            });
+//        };
+        
+         $scope.save = function () {
+            console.log("save");
+            console.log({json: JSON.stringify(serverService.array_identificarArray($scope.obj))});
+            //strValues = serverService.array_identificarArray(thisObject.form_getFormValues(strClass));
+            serverService.getDataFromPromise(serverService.promise_setOne($scope.ob, {json: JSON.stringify(serverService.array_identificarArray($scope.obj))})).then(function (data) {
+                $scope.result = data;
             });
         };
 //        $scope.$watch('obj.obj_tipousuario.id', function () {
